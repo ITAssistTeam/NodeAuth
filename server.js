@@ -33,21 +33,20 @@ app.get('/setup', function(req, res) {
 
 	// create a sample user
 	var nick = new User({ 
-		name: 'Nick Cerminara', 
+		name: 'TestUser', 
 		password: 'password',
 		admin: true 
 	});
 	nick.save(function(err) {
 		if (err) throw err;
-
-		console.log('User saved successfully');
+		
 		res.json({ success: true });
 	});
 });
 
 // basic route (http://localhost:8080)
 app.get('/', function(req, res) {
-	res.send('Hello! The API is at http://localhost:' + port + '/api');
+	res.send('Api Running');
 });
 
 // ---------------------------------------------------------
@@ -60,7 +59,7 @@ var apiRoutes = express.Router();
 // ---------------------------------------------------------
 // http://localhost:8080/api/authenticate
 apiRoutes.post('/authenticate', function(req, res) {
-console.log("HERE");
+
 	// find the user
 	User.findOne({
 		name: req.body.name
@@ -123,10 +122,6 @@ apiRoutes.post('/signup', function(req, res) {
 			});
 		});
 	});
-	
-	
-
-
 });
 
 // ---------------------------------------------------------
@@ -168,7 +163,7 @@ apiRoutes.use(function(req, res, next) {
 // authenticated routes
 // ---------------------------------------------------------
 apiRoutes.get('/', function(req, res) {
-	res.json({ message: 'Welcome to the coolest API on earth!' });
+	res.json({ message: 'This is an authenticated route' });
 });
 
 apiRoutes.get('/users', function(req, res) {
@@ -187,4 +182,4 @@ app.use('/api', apiRoutes);
 // start the server ================================================
 // =================================================================
 app.listen(port);
-console.log('Magic happens at http://localhost:' + port);
+console.log("Api Started");
